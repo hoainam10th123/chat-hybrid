@@ -1,0 +1,85 @@
+<div class="row">
+    <div class="col-md-4">
+        <div class="card-header">
+            <div class="displayName text-center">
+                Contact
+            </div>
+        </div>
+        <div class="card-body">
+            <ul class="chat scroll-max-height-500">
+                <!-- [ngClass]="{'active' : currentId === item.id}" -->
+                <li *ngFor="let user of users" (click)="selectedUserAndLoadMessages(user)"
+                    [class.active]="userSelected === user">
+                    <div class="parent">
+                        <div class="mr"><img src="{{user.photoUrl || './assets/user.png'}}" alt="{{user.userName}}"
+                                class="rounded-circle"></div>
+                        <div>
+                            <div class="displayName">{{user.displayName}}</div>
+                            <div [class.is-online]="(presence.onlineUsers$ | async).includes(user.userName)"
+                                *ngIf="(presence.onlineUsers$ | async).includes(user.userName)">Online</div>
+                        </div>
+                        <div class="child-right" *ngIf="user.unReadMessageCount > 0">
+                            <span class="badge bg-danger">{{user.unReadMessageCount}}</span>
+                        </div>
+                    </div>
+                </li>
+            </ul>
+        </div>
+    </div>
+    <div class="col-md-8">
+        <div class="card" style="margin-top: 10px;">
+            <div class="card-header" *ngIf="userSelected">
+                <div class="parent">
+                    <div class="mr"><img src="{{userSelected.photoUrl || './assets/user.png'}}" alt=""
+                            class="rounded-circle"></div>
+                    <div>
+                        <div class="displayName">{{userSelected.displayName}}</div>
+                        <div class="font-sm text-muted">{{userSelected.lastActive | timeago}}</div>
+                    </div>
+                </div>
+            </div>
+            <div class="card-body">
+                <ul #scrollMe class="chat scroll-max-height-500" *ngIf="(accountService.currentUser$ | async) as user">
+                    <li class="mr" *ngFor="let message of _messages">
+                        <!-- [ngClass]="message.senderUsername === user.userName ? ['parent-sent'] : ['parent']" -->
+                        <div
+                            [ngClass]="{'parent-sent': message.senderUsername === user.userName, 'parent' : message.recipientUsername === user.userName }">
+                            <!-- img cua user nhan message -->
+                            <div class="mr" *ngIf="message.recipientUsername === user.userName">
+                                <img class="rounded-circle small-img"
+                                    src="{{message.senderPhotoUrl || './assets/user.png'}}" alt="">
+                            </div>
+                            <div class="message-body" [class.style-sent]="message.senderUsername === user.userName">
+                                <div class="header">
+                                    <small class="text-muted">
+                                        <span class="fa fa-clock-o">{{message.messageSent | timeago}}</span>
+                                        <span class="text-danger"
+                                            *ngIf="!message.dateRead && message.senderUsername !== user.userName">
+                                            (unread)
+                                        </span>
+                                        <span class="text-success"
+                                            *ngIf="message.dateRead && message.senderUsername !== user.userName">
+                                            (read {{message.dateRead | timeago}})
+                                        </span>
+                                    </small>
+                                </div>
+                                <div>{{message.content}}</div>
+                            </div>                            
+                        </div>
+                    </li>
+                </ul>
+            </div>
+            <div class="card-footer">
+                <form #messageForm="ngForm" (ngSubmit)="sendMessage()" autocomplete="off">
+                    <div class="input-group">
+                        <input type="text" name="messageContent" required [(ngModel)]="messageContent"
+                            class="form-control input-sm" placeholder="Sender a private message">
+                        <div class="input-group-append">
+                            <button [disabled]="!messageForm.valid" class="btn btn-primary" type="submit">Send</button>
+                        </div>
+                    </div>
+                </form>
+            </div>
+        </div>
+    </div>
+</div>

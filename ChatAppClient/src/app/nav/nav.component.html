@@ -1,0 +1,30 @@
+<nav class="navbar navbar-expand-md navbar-dark fixed-top bg-secondary">
+    <div class="container">
+        <a class="navbar-brand" routerLink="/">Chat app</a>
+        <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarCollapse" aria-controls="navbarCollapse" aria-expanded="false" aria-label="Toggle navigation">
+        <span class="navbar-toggler-icon"></span>
+        </button>
+        <div class="collapse navbar-collapse">
+            <ul class="navbar-nav me-auto mb-2 mb-md-0">                
+                <li class="nav-item" *ngIf="accountService.currentUser$ | async">
+                    <a class="nav-link" routerLink="/chat" routerLinkActive='active'>Chat</a>
+                </li>
+                <li class="nav-item" *ngIf="!(accountService.currentUser$ | async)">
+                    <a class="nav-link" routerLink="/login" routerLinkActive='active'>Login</a>
+                </li>
+                <li class="nav-item" *ngIf="!(accountService.currentUser$ | async)">
+                    <a class="nav-link" routerLink="/register" routerLinkActive='active'>Register</a>
+                </li>    
+            </ul>
+            <div class="dropdown" *ngIf="(accountService.currentUser$ | async) as user" dropdown>
+                <img src="{{user.photoUrl || './assets/user.png'}}" alt="{{user.userName}}">
+                <a class="dropdown-toogle text-light" dropdownToggle>Welcome {{user.displayName}}</a>
+                <div class="dropdown-menu mt-3" *dropdownMenu>
+                  <a class="dropdown-item" routerLink="/edit-profile">Edit profile</a>
+                  <div class="dropdown-divider"></div>
+                  <a class="dropdown-item" (click)="logout()">Logout</a>
+                </div>
+              </div>   
+        </div>
+    </div>
+</nav>

@@ -1,0 +1,17 @@
+<form class="text-center form-signin" [formGroup]="loginForm" (ngSubmit)="login()">    
+    <h1 class="h3 mb-3 fw-normal">Please sign in</h1>
+    
+    <app-text-input [formControl]='loginForm.controls["userName"]' [label]='"Username"'></app-text-input>
+    
+    <app-text-input [formControl]='loginForm.controls["password"]' [label]='"Password"' [type]='"password"'>
+    </app-text-input>  
+
+    <div class="checkbox mb-3">
+        <label>
+            <input type="checkbox" value="remember-me"> Remember me
+        </label>
+    </div>
+
+    <button class="w-100 btn btn-lg btn-primary" type="submit" [disabled]="!loginForm.valid">Sign in</button>
+    <p class="mt-5 mb-3 text-muted">© 2017–2021</p>
+</form>

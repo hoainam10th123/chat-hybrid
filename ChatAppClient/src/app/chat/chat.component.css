@@ -1,0 +1,76 @@
+img{
+    max-height: 50px;
+}
+
+.chat{
+    list-style: none;
+    margin: 0;
+    padding: 0;
+}
+
+.message-body{
+    display: inline-block;
+    background-color: rgba(230, 225, 225, 0.603);
+    border-radius: 10px;
+    padding: 10px;
+    max-width: 70%;
+}
+
+.style-sent{
+    background-color: rgb(35, 174, 221);
+    color: white;
+}
+
+.small-img{
+    max-height: 30px;
+}
+
+.mr{
+    margin: 5px;
+}
+
+.font-sm{
+    font-size: 14px;
+}
+
+.displayName{
+    font-size: 23px;
+    font-weight: bold;
+}
+
+.active{
+    background-color: rgba(173, 165, 165, 0.603);
+    border-radius: 10px;
+}
+
+.parent{
+    display: flex;
+    flex-direction:row;
+}
+
+.parent-sent{
+    display: flex;
+    flex-direction:row;
+    justify-content: flex-end;
+}
+
+.card-body ul li:hover{
+    background-color: rgba(173, 165, 165, 0.603);
+    border-radius: 10px;
+    cursor: pointer;
+}
+
+.scroll-max-height-500{
+    overflow: scroll;
+    max-height: 430px;
+}
+
+.is-online {
+    animation: fa-blink 1.5s linear infinite;
+    color: rgb(1, 189, 42);
+}
+
+.child-right{
+    margin-left: auto;
+    order: 2;
+}

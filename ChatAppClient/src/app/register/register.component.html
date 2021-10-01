@@ -1,0 +1,22 @@
+<form [formGroup]="registerForm" (ngSubmit)="registerForm.valid && register()" class="text-center form-signin">    
+    <h1 class="h3 mb-3 fw-normal">Register form</h1>
+    <app-text-input [formControl]='registerForm.controls["displayName"]' [label]='"DisplayName"'></app-text-input>
+    <app-text-input [formControl]='registerForm.controls["userName"]' [label]='"Username"'></app-text-input>
+    <app-text-input [formControl]='registerForm.controls["password"]' [label]='"Password"' [type]='"password"'></app-text-input>
+    <app-text-input [formControl]='registerForm.controls["confirmPassword"]' [label]='"Confirm Password"' [type]='"password"'></app-text-input>
+    <app-date-input [formControl]='registerForm.controls["dayOfBirth"]' [label]='"DateOfBirth"' [maxDate]="maxDate"></app-date-input>    
+
+    <div style="margin-top: 10px;">
+        <button [disabled]='!registerForm.valid' class="btn btn-lg btn-primary" type="submit" style="margin-right: 5px;">Register</button>        
+    </div>
+    
+    <div class="row" *ngIf="validationErrors.length > 0">
+        <ul class="text-danger">
+            <li *ngFor="let error of validationErrors">
+                {{error}}
+            </li>
+        </ul>
+    </div>
+
+    <p class="mt-5 mb-3 text-muted">© 2017–2021</p>
+</form>
