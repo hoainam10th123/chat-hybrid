@@ -22,3 +22,5 @@ Còn nếu chạy app desktop trên windows là: localhost
 ![Config 1](Chat/dangky.png)
 
 ![Config 1](Chat/login.png)
+
+![Config 1](Chat/chatmobile.png)
