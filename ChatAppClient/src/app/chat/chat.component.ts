@@ -1,9 +1,8 @@
-import { ChangeDetectionStrategy, Component, ElementRef, OnInit, ViewChild } from '@angular/core';
+import { Component, ElementRef, OnInit, ViewChild } from '@angular/core';
 import { NgForm } from '@angular/forms';
 import { take } from 'rxjs/operators';
 import { Message } from '../models/message';
 import { Member, User } from '../models/user';
-import { UserConnectToSignalR } from '../models/user-connect';
 import { AccountService } from '../services/account.service';
 import { MessageService } from '../services/message.service';
 import { PresenceService } from '../services/presence.service';
@@ -21,20 +20,11 @@ export class ChatComponent implements OnInit {
   users: Member[] = [];
   userSelected: Member;
   userCurrent: User;
-  _messages: Message[] = [];
 
-  userConnects: UserConnectToSignalR[] = [];
-
-  constructor(private userService: UserService, private messageService: MessageService, public accountService: AccountService, public presence: PresenceService) {
-    this.accountService.currentUser$.pipe(take(1)).subscribe(user => this.userCurrent = user);
-    
-    this.messageService.messageThread$.subscribe(messages=>{
-      this._messages = messages;
-    })
-
-    this.presence.message$.subscribe(message=>{
-      this.updateUnreadMesageCount(message);
-    })
+  constructor(private userService: UserService, 
+    public messageService: MessageService, 
+    public accountService: AccountService, public presence: PresenceService) {
+    this.accountService.currentUser$.pipe(take(1)).subscribe(user => this.userCurrent = user);    
   }
 
   ngOnInit(): void {
@@ -55,20 +45,16 @@ export class ChatComponent implements OnInit {
   getUsers() {
     this.userService.getUsers().subscribe(users => {
       this.users = users;
-      this.selectedUserAndLoadMessages(users[0]);
+      if(users.length > 0)
+        this.selectedUserAndLoadMessages(users[0]);
     })
   }
 
   selectedUserAndLoadMessages(user: Member) {
     this.userSelected = user;
-    var containUser = this.userConnects.find(u => u.userName === this.userSelected.userName);
-    
-    if (!containUser) {
-      this.userConnects.push(new UserConnectToSignalR(user.userName));
-      this.messageService.createHubConnection(this.userCurrent, this.userSelected.userName);            
-    }else{
-      this.messageService.loadMessages(this.userSelected.userName)
-    }
+    this.messageService.stopHubConnection();    
+    this.messageService.createHubConnection(this.userCurrent, this.userSelected.userName);
+    this.messageService.loadMessages(this.userSelected.userName);
 
     for(let u of this.users){
       if(u.userName === this.userSelected.userName){
@@ -89,24 +75,10 @@ export class ChatComponent implements OnInit {
         elem.dateRead = new Date();
         elem.messageSent = new Date();
 
-      this.messageService.sendMessage(this.userSelected.userName, this.messageContent).then(() => {        
-        this._messages.push(elem);
+      this.messageService.sendMessage(this.userSelected.userName, this.messageContent).then(() => {
         this.messageForm.reset();
       })
     }    
-  }
-
-  updateUnreadMesageCount(message: Message){
-    if(message?.senderUsername === this.userSelected?.userName){
-      this._messages.push(message);
-    }else{
-      for(let u of this.users){
-        if(u.userName === message?.senderUsername){
-          u.unReadMessageCount++;
-          break;
-        }
-      }
-    }
   }
 
 }

@@ -29,9 +29,9 @@ namespace ChatAppCore.Data
             }
             
             var users = new List<AppUser> {
-                new AppUser { UserName = "hoainam10th", DisplayName = "Nguyễn Hoài Nam", DayOfBirth = DateTime.Parse("2/17/1991 12:15:12 PM")},
-                new AppUser{ UserName="ubuntu", DisplayName = "Ubuntu Nguyễn", DayOfBirth = DateTime.Parse("2/17/1990 12:15:12 PM")},
-                new AppUser{UserName="lisa", DisplayName = "Lisa", DayOfBirth = DateTime.Parse("2/17/2000 12:15:12 PM")}
+                new AppUser { UserName = "hoainam10th", DisplayName = "Nguyễn Hoài Nam", DayOfBirth = DateTime.Parse("17/2/1991 12:15:12 PM")},
+                new AppUser{ UserName="ubuntu", DisplayName = "Ubuntu Nguyễn", DayOfBirth = DateTime.Parse("17/2/1990 12:15:12 PM")},
+                new AppUser{UserName="lisa", DisplayName = "Lisa", DayOfBirth = DateTime.Parse("17/2/2000 12:15:12 PM")}
             };
 
             foreach (var user in users)
@@ -41,7 +41,7 @@ namespace ChatAppCore.Data
                 await userManager.AddToRoleAsync(user, "user");
             }
 
-            var admin = new AppUser { UserName = "admin", DisplayName = "Admin", DayOfBirth = DateTime.Parse("2/17/1991 12:15:12 PM") };
+            var admin = new AppUser { UserName = "admin", DisplayName = "Admin", DayOfBirth = DateTime.Parse("17/2/1991 12:15:12 PM") };
             await userManager.CreateAsync(admin, "Hoainam10th");
             await userManager.AddToRolesAsync(admin, new[] { "admin", "user" });
         }

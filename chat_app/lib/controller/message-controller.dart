@@ -30,6 +30,7 @@ class MessagesController extends GetxController {
       }
 
       _hubConnection!.on("ReceiveMessageThread", _receiveMessageThread);
+      _hubConnection!.on("NewMessage", _newMessage);
     }
   }
 
@@ -42,8 +43,14 @@ class MessagesController extends GetxController {
     });
   }
 
-  void sendMessageToClient(String userNameTo, String content){
-    _hubConnection!.invoke("SendMessage", args: <Object>[
+  void _newMessage(List<Object> parameters) {
+    final message = parameters[0] as Map<String, dynamic>;
+    final mess = Message.fromJson(message);
+    messages.add(mess);
+  }
+
+  Future<void> sendMessageToClient(String userNameTo, String content) async {
+    await _hubConnection!.invoke("SendMessage", args: <Object>[
       {'RecipientUsername': userNameTo, 'Content':content}
     ]);
   }

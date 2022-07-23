@@ -1,10 +1,11 @@
-import 'package:chat_app/controller/user-controller.dart';
+import 'dart:convert';
+
 import 'package:chat_app/helper/primary_button.dart';
 import 'package:chat_app/models/UserResponse.dart';
 import 'package:chat_app/models/auth.dart';
 import 'package:chat_app/models/user.dart';
 import 'package:flutter/material.dart';
-import 'package:get/get.dart';
+import 'package:shared_preferences/shared_preferences.dart';
 
 class LoginPage extends StatefulWidget {
   LoginPage({required Key key,required this.title, required this.auth,required this.onSignedIn})
@@ -20,8 +21,9 @@ class LoginPage extends StatefulWidget {
 enum FormType { login, register }
 
 class _LoginPageState extends State<LoginPage> {
-  static final formKey = new GlobalKey<FormState>();
-  UserLogin _user = new UserLogin(userName: '', password: '');
+  static final formKey = GlobalKey<FormState>();
+  final UserLogin _user = UserLogin(userName: '', password: '');
+  final Future<SharedPreferences> _prefs = SharedPreferences.getInstance();
 
   FormType _formType = FormType.login;
   String _authHint = '';
@@ -45,6 +47,12 @@ class _LoginPageState extends State<LoginPage> {
         UserResponse resp = await widget.auth.signIn(_user.userName, _user.password);
         if (resp.error == '200') {
           widget.onSignedIn();
+          //save local storages
+          final SharedPreferences prefs = await _prefs;
+          final json = jsonEncode(resp.user!.toJson());
+          final _counter = prefs.setString('user', json).then((bool success) {
+            return 0;
+          });
         } else {
           setState(() {
             _authHint = resp.error!;

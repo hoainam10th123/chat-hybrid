@@ -19,6 +19,16 @@ class User {
         dayOfBirth: DateTime.parse(json['dayOfBirth'])
     );
   }
+
+  Map<String, dynamic> toJson() =>
+      {
+        'userName': userName,
+        'token': token,
+        'photoUrl': photoUrl,
+        'displayName': displayName,
+        'lastActive': lastActive.toIso8601String(),
+        'dayOfBirth': dayOfBirth.toIso8601String(),
+      };
 }
 
 class UserLogin{

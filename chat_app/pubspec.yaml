@@ -40,6 +40,7 @@ dependencies:
   intl: ^0.17.0
   timeago: ^3.2.2
   signalr_netcore: ^0.1.7+2-nullsafety.3
+  shared_preferences: ^2.0.15
 
 dev_dependencies:
   flutter_test:

@@ -4,7 +4,6 @@ import { HubConnection, HubConnectionBuilder } from '@microsoft/signalr';
 import { BehaviorSubject } from 'rxjs';
 import { take } from 'rxjs/operators';
 import { environment } from 'src/environments/environment';
-import { Group } from '../models/group';
 import { Message } from '../models/message';
 import { User } from '../models/user';
 
@@ -33,6 +32,12 @@ export class MessageService {
       this.messageThreadSource.next(messages);
     })
 
+    this.hubConnection.on('NewMessage', (message: Message) => {
+      this.messageThread$.pipe(take(1)).subscribe(messages => {
+        this.messageThreadSource.next([...messages, message]);
+      });
+    })
+
     // this.hubConnection.on('UpdatedGroup', (group: Group) => {
     //   if(group.connections.some(x => x.userName === otherUsername)){
     //     this.messageThread$.pipe(take(1)).subscribe(messages => {
@@ -51,6 +56,10 @@ export class MessageService {
     if(this.hubConnection){
       this.hubConnection.stop();
     }
+  }
+
+  clearMessages(){
+    this.messageThreadSource.next([]);
   }
 
   loadMessages(otherUserName: string){

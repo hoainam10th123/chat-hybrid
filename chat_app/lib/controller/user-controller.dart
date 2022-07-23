@@ -85,13 +85,8 @@ class UserController extends GetxController {
   }
 
   void _newMessageReceived(List<Object> parameters) {
-    //final message = Map<String, dynamic>.from(parameters[0] as Map<String, dynamic>);
     final message = parameters[0] as Map<String, dynamic>;
     final mess = Message.fromJson(message);
-
-    if (mess.senderUsername == userSelected.value.userName) {
-      messagesController.addMessage(mess);
-    }
 
     int index = users.indexWhere(
         (f) => f.userName == mess.senderUsername); //message['senderUsername']

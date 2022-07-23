@@ -40,7 +40,7 @@
             </div>
             <div class="card-body">
                 <ul #scrollMe class="chat scroll-max-height-500" *ngIf="(accountService.currentUser$ | async) as user">
-                    <li class="mr" *ngFor="let message of _messages">
+                    <li class="mr" *ngFor="let message of (messageService.messageThread$ | async)">
                         <!-- [ngClass]="message.senderUsername === user.userName ? ['parent-sent'] : ['parent']" -->
                         <div
                             [ngClass]="{'parent-sent': message.senderUsername === user.userName, 'parent' : message.recipientUsername === user.userName }">

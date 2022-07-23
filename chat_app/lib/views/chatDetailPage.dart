@@ -1,7 +1,6 @@
 import 'package:chat_app/controller/message-controller.dart';
 import 'package:chat_app/controller/user-controller.dart';
 import 'package:chat_app/helper/globals.dart';
-import 'package:chat_app/models/message.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:timeago/timeago.dart' as timeago;
@@ -176,13 +175,7 @@ class _ChatDetailPageState extends State<ChatDetailPage> {
                   FloatingActionButton(
                     onPressed: () {
                       messagesController.sendMessageToClient(
-                          userController.userSelected.value.userName!, content);
-                      messagesController.addMessage(Message(
-                          content: content,
-                          recipientUsername:
-                          userController.userSelected.value.userName,
-                          dateRead: DateTime.now(),
-                          messageSent: DateTime.now()));
+                          userController.userSelected.value.userName!, content).then((value) => print("Send success"));
                     },
                     child: Icon(
                       Icons.send,

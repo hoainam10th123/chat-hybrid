@@ -6000,11 +6000,11 @@
   "project": {
     "version": "1.0.0",
     "restore": {
-      "projectUniqueName": "C:\\Users\\hoain\\source\\repos\\ChatAppCore\\ChatAppCore\\ChatAppCore.csproj",
+      "projectUniqueName": "D:\\code\\DotNetCore-Angular\\chat-hybrid\\ChatAppCore\\ChatAppCore\\ChatAppCore.csproj",
       "projectName": "ChatAppCore",
-      "projectPath": "C:\\Users\\hoain\\source\\repos\\ChatAppCore\\ChatAppCore\\ChatAppCore.csproj",
+      "projectPath": "D:\\code\\DotNetCore-Angular\\chat-hybrid\\ChatAppCore\\ChatAppCore\\ChatAppCore.csproj",
       "packagesPath": "C:\\Users\\hoain\\.nuget\\packages\\",
-      "outputPath": "C:\\Users\\hoain\\source\\repos\\ChatAppCore\\ChatAppCore\\obj\\",
+      "outputPath": "D:\\code\\DotNetCore-Angular\\chat-hybrid\\ChatAppCore\\ChatAppCore\\obj\\",
       "projectStyle": "PackageReference",
       "configFilePaths": [
         "C:\\Users\\hoain\\AppData\\Roaming\\NuGet\\NuGet.Config",
@@ -6086,7 +6086,7 @@
             "privateAssets": "all"
           }
         },
-        "runtimeIdentifierGraphPath": "C:\\Program Files\\dotnet\\sdk\\5.0.203\\RuntimeIdentifierGraph.json"
+        "runtimeIdentifierGraphPath": "C:\\Program Files\\dotnet\\sdk\\5.0.408\\RuntimeIdentifierGraph.json"
       }
     }
   }

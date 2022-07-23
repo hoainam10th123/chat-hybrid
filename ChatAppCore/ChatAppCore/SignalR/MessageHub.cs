@@ -13,10 +13,10 @@ namespace ChatAppCore.SignalR
 {
     public class MessageHub : Hub
     {
-        IMapper _mapper;
-        IHubContext<PresenceHub> _presenceHub;
-        PresenceTracker _presenceTracker;
-        IUnitOfWork _unitOfWork;
+        private readonly IMapper _mapper;
+        private readonly IUnitOfWork _unitOfWork;
+        private readonly IHubContext<PresenceHub> _presenceHub;
+        private readonly PresenceTracker _presenceTracker;
 
         public MessageHub(IMapper mapper, IUnitOfWork unitOfWork, IHubContext<PresenceHub> presenceHub, PresenceTracker presenceTracker)
         {
@@ -46,6 +46,7 @@ namespace ChatAppCore.SignalR
         {
             var group = await RemoveFromMessageGroup();
             await Clients.Group(group.Name).SendAsync("UpdatedGroup", group);
+            await Groups.RemoveFromGroupAsync(Context.ConnectionId, group.Name);
             await base.OnDisconnectedAsync(exception);
         }
 
@@ -75,23 +76,16 @@ namespace ChatAppCore.SignalR
                 message.DateRead = DateTime.Now;
             }
 
-            
-            //if (connections != null)
-            //{
-            //    await _presenceHub.Clients.Clients(connections).SendAsync("NewMessageReceived", new { username = sender.UserName, diplayName = sender.DisplayName });
-            //}
-
             _unitOfWork.MessageRepository.AddMessage(message);
 
             if (await _unitOfWork.Complete())
             {
+                var messageDto = _mapper.Map<MessageDto>(message);
+                await Clients.Group(groupName).SendAsync("NewMessage", messageDto);
                 var connections = await _presenceTracker.GetConnectionsForUser(recipient.UserName);
-                //await Clients.Group(groupName).SendAsync("NewMessage", _mapper.Map<MessageDto>(message));
-                if (connections != null)
-                {                    
-                    await _presenceHub.Clients.Clients(connections).SendAsync("NewMessageReceived", _mapper.Map<MessageDto>(message));
-                }
-            }
+                if (connections != null && connections.Count > 0)
+                    await _presenceHub.Clients.Clients(connections).SendAsync("NewMessageReceived", messageDto);
+            }    
         }
 
         private async Task<Group> AddToGroup(string groupName)

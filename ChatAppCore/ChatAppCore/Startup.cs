@@ -68,7 +68,7 @@ namespace ChatAppCore
             app.UseMiddleware<ExceptionMiddleware>();
 
             app.UseHttpsRedirection();
-			app.UseDefaultFiles();
+            app.UseDefaultFiles();
             app.UseStaticFiles();
 
             app.UseRouting();

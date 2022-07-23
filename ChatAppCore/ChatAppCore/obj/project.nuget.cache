@@ -1,8 +1,8 @@
 {
   "version": 2,
-  "dgSpecHash": "PuqBRtV+o46odzGcwCLqsO3405Tm1+2d+fKuBdlKeLG2d50POaRllhFg4vZnJb99P6M55wNM4cA1IRnXxqnSRA==",
+  "dgSpecHash": "PZEILYnRY3pIcxJSPjDvzfH1ZS+HK+Rc9Zhlbz2uzruIIC+NzCckEC8hUuSDoJF3fIJC2GWTFwrK6xH2bffDjA==",
   "success": true,
-  "projectFilePath": "C:\\Users\\hoain\\source\\repos\\ChatAppCore\\ChatAppCore\\ChatAppCore.csproj",
+  "projectFilePath": "D:\\code\\DotNetCore-Angular\\chat-hybrid\\ChatAppCore\\ChatAppCore\\ChatAppCore.csproj",
   "expectedPackageFiles": [
     "C:\\Users\\hoain\\.nuget\\packages\\automapper\\10.1.1\\automapper.10.1.1.nupkg.sha512",
     "C:\\Users\\hoain\\.nuget\\packages\\automapper.extensions.microsoft.dependencyinjection\\8.1.1\\automapper.extensions.microsoft.dependencyinjection.8.1.1.nupkg.sha512",
