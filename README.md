@@ -19,6 +19,8 @@ Còn nếu chạy app desktop trên windows là: localhost
 
 ![Config 1](Chat/chat-deploy.png)
 
+![Config 1](Chat/realdevice.png)
+
 ![Config 1](Chat/chatWindows.png)
 
 ![Config 1](Chat/dangky.png)
