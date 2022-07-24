@@ -17,7 +17,7 @@ Còn nếu chạy app desktop trên windows là: localhost
 
 ## ảnh minh họa
 
-![Config 1](Chat/chatAppWinform.png)
+![Config 1](Chat/chat-deploy.png)
 
 ![Config 1](Chat/chatWindows.png)
 
