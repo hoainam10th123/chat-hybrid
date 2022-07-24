@@ -1,6 +1,8 @@
-# chat-hybrid
-.net core 5 + angular 11 + flutter 3.0
+# chat-hybrid .net core 5 + angular 11 + flutter 3.0
+
 demo: https://youtu.be/sjObxk1rSAU
+
+https://user-images.githubusercontent.com/38690833/180636664-698b036e-9343-47b1-88b3-b67b61d3cc70.mp4
 
 ## Sửa file chat_app\lib\helper\globals.dart
 **const serverName = "localhost"; //10.0.2.2 for mobile**
